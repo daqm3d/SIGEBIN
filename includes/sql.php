@@ -227,7 +227,7 @@ function tableExists($table){
    function find_product_by_title($product_name){
      global $db;
      $p_name = remove_junk($db->escape($product_name));
-     $sql = "SELECT name FROM products WHERE name like '%$p_name%' LIMIT 5";
+     $sql = "SELECT  name FROM products WHERE name like '%$p_name%' LIMIT 5";
      $result = find_by_sql($sql);
      return $result;
    }
@@ -309,7 +309,7 @@ function find_sale_by_dates($start_date,$end_date){
   global $db;
   $start_date  = date("Y-m-d", strtotime($start_date));
   $end_date    = date("Y-m-d", strtotime($end_date));
-  $sql  = "SELECT name,quantity,marca,serial,model,date FROM products where BETWEEN '$start_date 00:00:00' and '$end_date 23:59:59'";
+  $sql  = "SELECT * FROM products where date between '$start_date' and '$end_date'";
   //$sql .= "COUNT(s.product_id) AS total_records,";
   //$sql .= "SUM(s.qty) AS total_sales,";
   //$sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price,";
