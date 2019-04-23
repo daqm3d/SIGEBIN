@@ -2,7 +2,7 @@
   <li>
     <a href="admin.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>Panel de control</span>
+      <span>Panel de Control</span>
     </a>
   </li>
   <li>
@@ -27,8 +27,8 @@
       <span>Productos</span>
     </a>
     <ul class="nav submenu">
-       <li><a href="product.php">Administrar productos</a> </li>
-       <li><a href="add_product.php">Agregar productos</a> </li>
+       <li><a href="product.php">Administrar Productos</a> </li>
+       <li><a href="add_product.php">Agregar Productos</a> </li>
    </ul>
   </li>
   <!--<li>
@@ -53,9 +53,9 @@
        <span>Reportes de Productos</span>
       </a>
       <ul class="nav submenu">
-        <li><a href="sales_report.php">Productos por fecha </a></li>
-        <li><a href="monthly_sales.php">Productos mensuales</a></li>
-        <li><a href="daily_sales.php">Productos diarias</a> </li>
+        <li><a href="sales_report.php">Reportes por Fecha </a></li>
+        <li><a href="monthly_sales.php">Reportes por Departamento</a></li>
+        <li><a href="daily_sales.php">Reportes por Serial</a> </li>
       </ul>
   </li>
 </ul>

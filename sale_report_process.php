@@ -30,6 +30,7 @@ $results = '';
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    <title>Reporte de ventas</title>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+     <link rel="stylesheet" href="libs/css/main.css" />
    <style>
    @media print {
      html,body{
@@ -87,10 +88,10 @@ $results = '';
           <tr>
               <th>Fecha</th>
               <th>Descripción</th>
-              <th>Marca</th>
-              <th>Serial</th>
+              <th>Marca</th> 
               <th>Modelo</th>
-              <th>TOTAL</th>
+              <th>Nro. Serial</th>
+              <th>Stock</th>
           </tr>
         </thead>
         <tbody>
@@ -100,10 +101,10 @@ $results = '';
               <td class="desc">
                 <h6><?php echo remove_junk(ucfirst($result['name']));?></h6>
               </td>
-              <td class="text-right"><?php echo remove_junk($result['quantity']);?></td>
+              <td class="text-right"><?php echo remove_junk($result['model']);?></td>
               <td class="text-right"><?php echo remove_junk($result['marca']);?></td>
               <td class="text-right"><?php echo remove_junk($result['serial']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['model']);?></td>
+              <td class="text-right"><?php echo remove_junk($result['quantity']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
@@ -122,6 +123,10 @@ $results = '';
          </tr>
         </tfoot>
       </table>
+    </div>
+    <div class="form-group" id="exportar">
+      <a href="sales_report.php"><button type="submit" name="submit" class="btn btn-primary">Cancelar</button></a>
+      <button type="submit"  name="submit" class="btn btn-primary">Exportar</button>
     </div>
   <?php
     else:

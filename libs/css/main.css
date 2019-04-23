@@ -242,6 +242,7 @@ table tfoot tr td:first-child{
   -moz-transition: all .15s ease-out;
   -webkit-transition: all .15s ease-out;
   transition: all .15s ease-out;
+  font color: #000000
 }.form-control:focus{
   background: #f8f8f8;
   border-color: #3498DB;
@@ -310,3 +311,10 @@ input[type=file]{
   width: 125px;
   height: 125px;
 }
+
+#exportar{
+  margin-top: 5%;
+  position: absolute;
+  left: 44%;
+  width: 200px;
+}/* exportar reporte */

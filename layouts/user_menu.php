@@ -2,7 +2,7 @@
   <li>
     <a href="home.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>Panel de control</span>
+      <span>Panel de Control</span>
     </a>
   </li>
   <!--<li>
@@ -21,9 +21,9 @@
        <span>Reporte de Productos</span>
       </a>
       <ul class="nav submenu">
-        <li><a href="sales_report.php">Productos por fecha </a></li>
-        <li><a href="monthly_sales.php">Productos mensuales</a></li>
-        <li><a href="daily_sales.php">Productos diarias</a> </li>
+        <li><a href="sales_report.php">Reporte por Fecha </a></li>
+        <li><a href="monthly_sales.php">Reporte por Departamento</a></li>
+        <li><a href="daily_sales.php">Reporte por Serial</a> </li>
       </ul>
   </li>
 </ul>

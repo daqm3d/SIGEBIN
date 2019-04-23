@@ -3,7 +3,6 @@
   <html lang="en">
     <head>
      <meta charset="UTF-8">
-    <link rel="icon"  href="../libs/images/favicon-ven911.ico" />
     <title><?php if (!empty($page_title))
            echo remove_junk($page_title);
             elseif(!empty($user))

@@ -338,17 +338,55 @@ function  dailySales($year,$month){
 /*--------------------------------------------------------------*/
 /* Function for Generate Monthly sales report
 /*--------------------------------------------------------------*/
-function  monthlySales($year){
+function  monthlySales(){
   global $db;
-  $sql  = "SELECT s.qty,";
-  $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
-  $sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
-  $sql .= " FROM sales s";
-  $sql .= " LEFT JOIN products p ON s.product_id = p.id";
-  $sql .= " WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
-  $sql .= " GROUP BY DATE_FORMAT( s.date,  '%c' ),s.product_id";
-  $sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
+  $sql  = "SELECT name FROM categories  ";
+  //$sql  = "SELECT s.qty,";
+  //$sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
+  //$sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
+  //$sql .= " FROM sales s";
+  //$sql .= " LEFT JOIN products p ON s.product_id = p.id";
+  //$sql .= " WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%c' ),s.product_id";
+  //$sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
   return find_by_sql($sql);
 }
+
+class Conexion{
+      var $ruta;
+      var $usuario;
+      var $contrasena;
+      var $baseDatos;
+
+      function Conexion(){
+        $this->ruta       ="localhost"; //
+        $this->usuario    ="root"; //usuario que tengas definido
+        $this->contrasena =""; //contraseña que tengas definidad
+        $this->baseDatos  ="oswa_inv"; //base de datos personas, si quieres utilizar otra base de datos solamente cambiala
+      }
+
+      function conectarse(){
+        //---------------------------TIPO DE CONEXION 1-----------------------------------
+        /*$conectarse= mysql_connect($this->ruta,$this->usuario, $this->contrasena) or die(mysql_error()); //conexion al BD
+        if($conectarse){
+          mysql_select_db($this->baseDatos);
+          return($conectarse);
+        }else{
+          return ("Error");
+          }*/
+        //------------------------TIPO DE CONEXION 2 - RECOMENDADA---------------------------------------------
+        $enlace = mysqli_connect($this->ruta, $this->usuario, $this->contrasena, $this->baseDatos);
+        if($enlace){
+          echo "Conexion exitosa";  //si la conexion fue exitosa nos muestra este mensaje como prueba, despues lo puedes poner comentarios de nuevo: //
+        }else{
+          die('Error de Conexión (' . mysqli_connect_errno() . ') '.mysqli_connect_error());
+        }
+        return($enlace);
+        // mysqli_close($enlace); //cierra la conexion a nuestra base de datos, un ounto de seguridad importante.
+      }
+      function monthlySales(){
+        
+      }
+    }
 
 ?>

@@ -2,7 +2,7 @@
   <li>
     <a href="home.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>Panel de control</span>
+      <span>Panel de Control</span>
     </a>
   </li>
   <li>
@@ -17,8 +17,8 @@
       <span>Productos</span>
     </a>
     <ul class="nav submenu">
-       <li><a href="product.php">Administrar productos</a> </li>
-       <li><a href="add_product.php">Agregar producto</a> </li>
+       <li><a href="product.php">Administrar Productos</a> </li>
+       <li><a href="add_product.php">Agregar Producto</a> </li>
    </ul>
   </li>
   <!--<li>
