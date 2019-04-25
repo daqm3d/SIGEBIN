@@ -1,5 +1,6 @@
 
 <?php
+  $page_title = 'Reporte por Departamento';
   require_once('includes/load.php');
   $conn=new Conexion();
   $link = $conn->conectarse();

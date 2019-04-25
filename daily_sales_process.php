@@ -9,9 +9,9 @@ $results = '';
   require_once('includes/load.php');
   $conn=new Conexion();
   $link = $conn->conectarse();
-  $departamentos = $_POST["Departamentos"];
+  $productos = $_POST["productos"];
   
-  $query="SELECT t1.name,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id WHERE  t1.categorie_id = $departamentos ";
+  $query="SELECT t1.name,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id WHERE  t1.serial = $productos ";
 
   $results=mysqli_query($link, $query);
 ?>
@@ -72,7 +72,7 @@ $results = '';
     <div class="page-break">
        <div class="sale-head pull-right">
            <h1>Reporte de Productos</h1>
-           <strong class="text-right">De <?php  echo $departamentos ?></strong>
+           <strong class="text-right">De <?php  echo $productos ?></strong>
        </div>
       <table class="table table-border">
         <thead>
@@ -121,8 +121,8 @@ $results = '';
     </div>
   <?php
     else:
-        $session->msg("d", "No se encontro producto en el departamento de  $departamentos ");
-        redirect('monthly_sales.php', false);
+        $session->msg("d", "No se encontro el codigo: $productos del producto   ");
+        redirect('daily_sales.php', false);
      endif;
   ?>
 </body>

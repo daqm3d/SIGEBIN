@@ -377,7 +377,7 @@ class Conexion{
         //------------------------TIPO DE CONEXION 2 - RECOMENDADA---------------------------------------------
         $enlace = mysqli_connect($this->ruta, $this->usuario, $this->contrasena, $this->baseDatos);
         if($enlace){
-          echo "Conexion exitosa";  //si la conexion fue exitosa nos muestra este mensaje como prueba, despues lo puedes poner comentarios de nuevo: //
+          echo "";  //si la conexion fue exitosa nos muestra este mensaje como prueba, despues lo puedes poner comentarios de nuevo: //
         }else{
           die('Error de Conexión (' . mysqli_connect_errno() . ') '.mysqli_connect_error());
         }

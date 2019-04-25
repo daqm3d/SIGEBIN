@@ -1,12 +1,15 @@
+
 <?php
-  $page_title = 'Ventas mensuales';
+  $page_title = 'Reporte por producto';
   require_once('includes/load.php');
   // Checkin What level user has permission to view this page
    page_require_level(3);
 ?>
+
 <?php
- $year = date('Y');
- $sales = monthlySales($year);
+ $year  = date('Y');
+ $month = date('m');
+ $sales = dailySales($year,$month);
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -20,7 +23,7 @@
         <div class="panel-heading clearfix">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>Ventas mensuales</span>
+            <span>Venta diaria</span>
           </strong>
         </div>
         <div class="panel-body">
@@ -29,7 +32,7 @@
               <tr>
                 <th class="text-center" style="width: 50px;">#</th>
                 <th> Descripción </th>
-                <th class="text-center" style="width: 15%;"> Cantidad vendidas</th>
+                <th class="text-center" style="width: 15%;"> Cantidad vendida</th>
                 <th class="text-center" style="width: 15%;"> Total </th>
                 <th class="text-center" style="width: 15%;"> Fecha </th>
              </tr>
