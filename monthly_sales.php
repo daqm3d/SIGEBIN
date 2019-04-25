@@ -4,7 +4,7 @@
   $conn=new Conexion();
   $link = $conn->conectarse();
 
-  $query="SELECT name FROM categories  ";
+  $query="SELECT * FROM categories  ";
   $result=mysqli_query($link, $query);
 ?>
 <?php include_once('layouts/header.php'); ?>
@@ -20,13 +20,14 @@
 
       </div>
       <div class="panel-body">
-          <form class="clearfix" method="post" action="sale_report_process.php">
+          <form class="clearfix" method="post" action="monthly_sales_process.php">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Departamentos</label>
-              <select class="form-control"  id="exampleFormControlSelect1">
+              <select name="Departamentos" class="form-control"  id="exampleFormControlSelect1">
+                    <option >Seleccionar Departamento</option>
                     <?php
                       while($lista=mysqli_fetch_assoc($result ))
-                        echo "<option  >".$lista["name"]."</option>"; 
+                        echo "<option value=".$lista["id"].">".$lista["name"]."</option>"; 
                     ?>
                 </select>
             </div>

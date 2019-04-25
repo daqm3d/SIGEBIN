@@ -6,29 +6,20 @@ $results = '';
    page_require_level(3);
 ?>
 <?php
-  if(isset($_POST['submit'])){
-    $req_dates = array('start-date','end-date');
-    validate_fields($req_dates);
+  require_once('includes/load.php');
+  $conn=new Conexion();
+  $link = $conn->conectarse();
+  $departamentos = $_POST["Departamentos"];
+  
+  $query="SELECT t1.name,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id WHERE  t1.categorie_id = $departamentos ";
 
-    if(empty($errors)):
-      $start_date   = remove_junk($db->escape($_POST['start-date']));
-      $end_date     = remove_junk($db->escape($_POST['end-date']));
-      $results      = find_sale_by_dates($start_date,$end_date);
-    else:
-      $session->msg("d", $errors);
-      redirect('sales_report.php', false);
-    endif;
-
-  } else {
-    $session->msg("d", "Select dates");
-    redirect('sales_report.php', false);
-  }
+  $results=mysqli_query($link, $query);
 ?>
 <!doctype html>
 <html lang="en-US">
  <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <title>Reporte de ventas</title>
+   <title>Reporte de Productos</title>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
      <link rel="stylesheet" href="libs/css/main.css" />
    <style>
@@ -81,7 +72,7 @@ $results = '';
     <div class="page-break">
        <div class="sale-head pull-right">
            <h1>Reporte de Productos</h1>
-           <strong><?php if(isset($start_date)){ echo $start_date;}?> a <?php if(isset($end_date)){echo $end_date;}?> </strong>
+           <strong class="text-right">De <?php  echo $departamentos ?></strong>
        </div>
       <table class="table table-border">
         <thead>
@@ -113,13 +104,13 @@ $results = '';
            <td colspan="4"></td>
            <td colspan="1"> Total </td>
            <td> $
-           <?php echo number_format(@total_price($results)[0], 2);?>
+           <?php echo number_format(@total_price($result)[0], 2);?>
           </td>
          </tr>
          <tr class="text-right">
            <td colspan="4"></td>
            <td colspan="1">Utilidad</td>
-           <td> $<?php echo number_format(@total_price($results)[1], 2);?></td>
+           <td> $<?php echo number_format(@total_price($result)[1], 2);?></td>
          </tr>
         </tfoot>
       </table>
@@ -130,8 +121,8 @@ $results = '';
     </div>
   <?php
     else:
-        $session->msg("d", "No se encontraron productos en la fechas: $start_date al $end_date");
-        redirect('sales_report.php', false);
+        $session->msg("d", "No se encontro producto en el departamento de  $departamento ");
+        redirect('monthly_sales.php', false);
      endif;
   ?>
 </body>

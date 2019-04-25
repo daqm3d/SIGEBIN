@@ -338,9 +338,9 @@ function  dailySales($year,$month){
 /*--------------------------------------------------------------*/
 /* Function for Generate Monthly sales report
 /*--------------------------------------------------------------*/
-function  monthlySales(){
-  global $db;
-  $sql  = "SELECT name FROM categories  ";
+//function  monthlySales(){
+ // global $db;
+ // $sql  = "SELECT name FROM categories  ";
   //$sql  = "SELECT s.qty,";
   //$sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
   //$sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
@@ -349,8 +349,8 @@ function  monthlySales(){
   //$sql .= " WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
   //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%c' ),s.product_id";
   //$sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
-  return find_by_sql($sql);
-}
+ // return find_by_sql($sql);
+//}
 
 class Conexion{
       var $ruta;
@@ -385,7 +385,7 @@ class Conexion{
         // mysqli_close($enlace); //cierra la conexion a nuestra base de datos, un ounto de seguridad importante.
       }
       function monthlySales(){
-        
+
       }
     }
 
