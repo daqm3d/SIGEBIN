@@ -300,7 +300,7 @@ function find_recent_sale_added($limit){
   $sql .= " FROM sales s";
   $sql .= " LEFT JOIN products p ON s.product_id = p.id";
   $sql .= " ORDER BY s.date DESC LIMIT ".$db->escape((int)$limit);
-  return find_by_sql($sql);
+  return find_by_sql($sql); 
 }
 /*--------------------------------------------------------------*/
 /* Function for Generate sales report by two dates
@@ -309,7 +309,7 @@ function find_sale_by_dates($start_date,$end_date){
   global $db;
   $start_date  = date("Y-m-d", strtotime($start_date));
   $end_date    = date("Y-m-d", strtotime($end_date));
-  $sql  = "SELECT * FROM products where date between '$start_date' and '$end_date'";
+  $sql  = "SELECT t1.name as name1 ,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id where t1.date between '$start_date' and '$end_date'";
   //$sql .= "COUNT(s.product_id) AS total_records,";
   //$sql .= "SUM(s.qty) AS total_sales,";
   //$sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price,";

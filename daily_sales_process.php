@@ -11,7 +11,7 @@ $results = '';
   $link = $conn->conectarse();
   $productos = $_POST["productos"];
   
-  $query="SELECT t1.name,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id WHERE  t1.serial = $productos ";
+  $query="SELECT t1.name as name1 ,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id WHERE  t1.bien = '$productos' ";
 
   $results=mysqli_query($link, $query);
 ?>
@@ -71,17 +71,19 @@ $results = '';
   <?php if($results): ?>
     <div class="page-break">
        <div class="sale-head pull-right">
-           <h1>Reporte de Productos</h1>
-           <strong class="text-right">De <?php  echo $productos ?></strong>
+           <h1>Reporte de Bienes Nacionales</h1>
+           <strong class="text-right">Del serial: <?php  echo $productos ?></strong>
        </div>
       <table class="table table-border">
         <thead>
           <tr>
-              <th>Fecha</th>
+              <th>Fecha de Ingreso</th>
               <th>Descripción</th>
               <th>Marca</th> 
               <th>Modelo</th>
               <th>Nro. Serial</th>
+              <th>Nro. Bienes Nacionales</th>
+              <th>Departamento</th>
               <th>Stock</th>
           </tr>
         </thead>
@@ -89,35 +91,22 @@ $results = '';
           <?php foreach($results as $result): ?>
            <tr>
               <td class=""><?php echo remove_junk($result['date']);?></td>
-              <td class="desc">
-                <h6><?php echo remove_junk(ucfirst($result['name']));?></h6>
-              </td>
+              <td class="text-right"><?php echo remove_junk($result['name1']);?></td>
               <td class="text-right"><?php echo remove_junk($result['model']);?></td>
               <td class="text-right"><?php echo remove_junk($result['marca']);?></td>
               <td class="text-right"><?php echo remove_junk($result['serial']);?></td>
+              <td class="text-right"><?php echo remove_junk($result['bien']);?></td>
+              <td class="text-right"><?php echo remove_junk($result['name']);?></td>
               <td class="text-right"><?php echo remove_junk($result['quantity']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
-        <tfoot>
-         <tr class="text-right">
-           <td colspan="4"></td>
-           <td colspan="1"> Total </td>
-           <td> $
-           <?php echo number_format(@total_price($result)[0], 2);?>
-          </td>
-         </tr>
-         <tr class="text-right">
-           <td colspan="4"></td>
-           <td colspan="1">Utilidad</td>
-           <td> $<?php echo number_format(@total_price($result)[1], 2);?></td>
-         </tr>
-        </tfoot>
       </table>
     </div>
     <div class="form-group" id="exportar">
-      <a href="monthly_sales.php"><button type="submit" name="submit" class="btn btn-primary">Cancelar</button></a>
-      <button type="submit"  name="submit" class="btn btn-primary">Exportar</button>
+      <a href="daily_sales.php"><button type="submit" name="submit" class="btn btn-primary">Cancelar</button></a>
+      <button type="submit"  name="submit" class="btn btn-primary">Exportar a PDF </button>
+      <button type="submit"  name="submit" class="btn btn-primary">Exportar a EXCEL </button>
     </div>
   <?php
     else:

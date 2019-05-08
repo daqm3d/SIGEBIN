@@ -1,3 +1,7 @@
+<?php 
+header('Content-type:application/xls');
+  header('Content-Disposition: attachment; filename=inventario.xls');
+ ?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -18,7 +22,7 @@
       
       <div class="row">
         <div class="col text-center">
-            <a href="exportar_data.php">
+            <a href="monthly_sales_process.php">
             Generar XLS
           </a>
         </div>

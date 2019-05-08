@@ -80,17 +80,19 @@ $results = '';
   <?php if($results): ?>
     <div class="page-break">
        <div class="sale-head pull-right">
-           <h1>Reporte de Productos</h1>
-           <strong><?php if(isset($start_date)){ echo $start_date;}?> a <?php if(isset($end_date)){echo $end_date;}?> </strong>
+           <h1>Reporte de Bienes Nacionales</h1>
+           <strong>Por fecha: <?php if(isset($start_date)){ echo $start_date;}?> a <?php if(isset($end_date)){echo $end_date;}?> </strong>
        </div>
       <table class="table table-border">
         <thead>
           <tr>
-              <th>Fecha</th>
+              <th>Fecha de Ingreso</th>
               <th>Descripción</th>
               <th>Marca</th> 
               <th>Modelo</th>
               <th>Nro. Serial</th>
+              <th>Nro. Bienes Nacionales</th>
+              <th>Departamento</th>
               <th>Stock</th>
           </tr>
         </thead>
@@ -98,35 +100,22 @@ $results = '';
           <?php foreach($results as $result): ?>
            <tr>
               <td class=""><?php echo remove_junk($result['date']);?></td>
-              <td class="desc">
-                <h6><?php echo remove_junk(ucfirst($result['name']));?></h6>
-              </td>
+              <td class="text-right"><?php echo remove_junk($result['name1']);?></td>
               <td class="text-right"><?php echo remove_junk($result['model']);?></td>
               <td class="text-right"><?php echo remove_junk($result['marca']);?></td>
               <td class="text-right"><?php echo remove_junk($result['serial']);?></td>
+              <td class="text-right"><?php echo remove_junk($result['bien']);?></td>
+              <td class="text-right"><?php echo remove_junk($result['name']);?></td>
               <td class="text-right"><?php echo remove_junk($result['quantity']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
-        <tfoot>
-         <tr class="text-right">
-           <td colspan="4"></td>
-           <td colspan="1"> Total </td>
-           <td> $
-           <?php echo number_format(@total_price($results)[0], 2);?>
-          </td>
-         </tr>
-         <tr class="text-right">
-           <td colspan="4"></td>
-           <td colspan="1">Utilidad</td>
-           <td> $<?php echo number_format(@total_price($results)[1], 2);?></td>
-         </tr>
-        </tfoot>
       </table>
     </div>
     <div class="form-group" id="exportar">
       <a href="sales_report.php"><button type="submit" name="submit" class="btn btn-primary">Cancelar</button></a>
-      <button type="submit"  name="submit" class="btn btn-primary">Exportar</button>
+      <button type="submit"  name="submit" class="btn btn-primary">Exportar a PDF </button>
+      <button type="submit"  name="submit" class="btn btn-primary">Exportar a EXCEL </button>
     </div>
   <?php
     else:

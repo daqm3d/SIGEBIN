@@ -5,8 +5,10 @@
   $conn=new Conexion();
   $link = $conn->conectarse();
 
-  $query="SELECT * FROM categories  ";
+  $query="SELECT * FROM categories WHERE name!='NINGUNO'";
   $result=mysqli_query($link, $query);
+
+  
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -16,19 +18,21 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <div class="panel">
-      <div class="panel-heading">
-
-      </div>
-      <div class="panel-body">
-          <form class="clearfix" method="post" action="monthly_sales_process.php">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong>
+            <span class="glyphicon glyphicon-th"></span>
+            <span>Departamentos</span>
+         </strong>
+        </div>
+        <div class="panel-body">
+          <form class="clearfix" method="post" action="consultardepartamentopdf.php">
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Departamentos</label>
-              <select name="Departamentos" class="form-control"  id="exampleFormControlSelect1">
+              <select name="departamentos" class="form-control"  id="exampleFormControlSelect1">
                     <option >Seleccionar Departamento</option>
                     <?php
                       while($lista=mysqli_fetch_assoc($result ))
-                        echo "<option value=".$lista["id"].">".$lista["name"]."</option>"; 
+                        echo "<option value=".$lista["name"].">".$lista["name"]."</option>"; 
                     ?>
                 </select>
             </div>
@@ -36,9 +40,8 @@
                <button type="submit" name="name" class="btn btn-primary">Generar Reporte</button>
             </div>
           </form>
+        </div>
       </div>
-    </div>
   </div>
-
 </div>
 <?php include_once('layouts/footer.php'); ?>

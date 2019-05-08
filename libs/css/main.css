@@ -259,7 +259,8 @@ table tfoot tr td:first-child{
 }.btn-primary {
     color: #fff;
     background-color: #51aded;
-    border-color: #3d8fd8
+    border-color: #3d8fd8;
+    margin: 10px;
 }.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active{
     color: #fff;
     background-color: #3175b8;
@@ -316,5 +317,4 @@ input[type=file]{
   margin-top: 5%;
   position: absolute;
   left: 44%;
-  width: 200px;
 }/* exportar reporte */
