@@ -1,6 +1,40 @@
 <?php
   require_once('includes/load.php');
-
+/***********************/  
+  function  find_by_departures($table){
+   global $db;
+   if(tableExists($table)){
+       return find_by_sql("SELECT t1.name as name1,t1.quantity,t1.serial,t1.model,t1.bien, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id WHERE t2.name='". $_GET["s_emp"] ."' ORDER by categorie_id desc;");
+   }
+       
+  }
+  
+/*******************************************************/
+function select_departures(){
+    global $db;
+    $results = array();
+    $sql = "SELECT t1.name as name1,t1.quantity,t1.serial,t1.model,t1.bien, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id WHERE t2.name='";
+    $results = find_by_sql($sql);
+    return;
+}
+/*******************************************************/  
+/*----------------------------------------------------------------*/
+  function find_departures($table){
+      global $db;
+      if(tableExists($table))
+          return find_by_sql("SELECT * FROM categories WHERE name!='NINGUNO';");
+  }
+/***********************************************/  
+/*function find by command center  
+/**********************************************/  
+function  buscar_centro($table){
+   global $db;
+   if(tableExists($table)){
+       $sql = find_by_sql("SELECT t1.name,t1.quantity,t1.serial,t1.model,t1.bien, t2.commands FROM products t1 INNER JOIN center t2 ON t1.centro=t2.id WHERE t2.commands='". $_GET["s_emp"] ."' ORDER by centro desc;");
+       return $sql;
+       
+   }    
+  }  
 /*--------------------------------------------------------------*/
 /* Function for find all database table rows by table name
 /*--------------------------------------------------------------*/
@@ -10,6 +44,14 @@ function find_all($table) {
    {
      return find_by_sql("SELECT * FROM ".$db->escape($table));
    }
+}
+
+function find_departures_all($table){
+    global $db;
+    if(tableExists($table)){
+        return find_by_sql("SELECT name FROM categories");
+    }
+        
 }
 /*--------------------------------------------------------------*/
 /* Function for Perform queries
@@ -227,7 +269,7 @@ function tableExists($table){
    function find_product_by_title($product_name){
      global $db;
      $p_name = remove_junk($db->escape($product_name));
-     $sql = "SELECT  name FROM products WHERE name like '%$p_name%' LIMIT 5";
+     $sql = "SELECT name FROM products WHERE name like '%$p_name%' LIMIT 5";
      $result = find_by_sql($sql);
      return $result;
    }
@@ -300,7 +342,7 @@ function find_recent_sale_added($limit){
   $sql .= " FROM sales s";
   $sql .= " LEFT JOIN products p ON s.product_id = p.id";
   $sql .= " ORDER BY s.date DESC LIMIT ".$db->escape((int)$limit);
-  return find_by_sql($sql); 
+  return find_by_sql($sql);
 }
 /*--------------------------------------------------------------*/
 /* Function for Generate sales report by two dates
@@ -309,7 +351,7 @@ function find_sale_by_dates($start_date,$end_date){
   global $db;
   $start_date  = date("Y-m-d", strtotime($start_date));
   $end_date    = date("Y-m-d", strtotime($end_date));
-  $sql  = "SELECT t1.name as name1 ,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.categorie_id=t2.id where t1.date between '$start_date' and '$end_date'";
+  $sql  = "SELECT name,quantity,marca,serial,model,date FROM products where BETWEEN '$start_date 00:00:00' and '$end_date 23:59:59'";
   //$sql .= "COUNT(s.product_id) AS total_records,";
   //$sql .= "SUM(s.qty) AS total_sales,";
   //$sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price,";
@@ -338,55 +380,62 @@ function  dailySales($year,$month){
 /*--------------------------------------------------------------*/
 /* Function for Generate Monthly sales report
 /*--------------------------------------------------------------*/
-//function  monthlySales(){
- // global $db;
- // $sql  = "SELECT name FROM categories  ";
-  //$sql  = "SELECT s.qty,";
-  //$sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
-  //$sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
-  //$sql .= " FROM sales s";
-  //$sql .= " LEFT JOIN products p ON s.product_id = p.id";
-  //$sql .= " WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
-  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%c' ),s.product_id";
-  //$sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
- // return find_by_sql($sql);
-//}
+function  monthlySales($year){
+  global $db;
+  $sql  = "SELECT s.qty,";
+  $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
+  $sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
+  $sql .= " FROM sales s";
+  $sql .= " LEFT JOIN products p ON s.product_id = p.id";
+  $sql .= " WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
+  $sql .= " GROUP BY DATE_FORMAT( s.date,  '%c' ),s.product_id";
+  $sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
+  return find_by_sql($sql);
+}
 
-class Conexion{
-      var $ruta;
-      var $usuario;
-      var $contrasena;
-      var $baseDatos;
-
-      function Conexion(){
-        $this->ruta       ="localhost"; //
-        $this->usuario    ="root"; //usuario que tengas definido
-        $this->contrasena =""; //contraseña que tengas definidad
-        $this->baseDatos  ="oswa_inv"; //base de datos personas, si quieres utilizar otra base de datos solamente cambiala
-      }
-
-      function conectarse(){
-        //---------------------------TIPO DE CONEXION 1-----------------------------------
-        /*$conectarse= mysql_connect($this->ruta,$this->usuario, $this->contrasena) or die(mysql_error()); //conexion al BD
-        if($conectarse){
-          mysql_select_db($this->baseDatos);
-          return($conectarse);
-        }else{
-          return ("Error");
-          }*/
-        //------------------------TIPO DE CONEXION 2 - RECOMENDADA---------------------------------------------
-        $enlace = mysqli_connect($this->ruta, $this->usuario, $this->contrasena, $this->baseDatos);
-        if($enlace){
-          echo "";  //si la conexion fue exitosa nos muestra este mensaje como prueba, despues lo puedes poner comentarios de nuevo: //
-        }else{
-          die('Error de Conexión (' . mysqli_connect_errno() . ') '.mysqli_connect_error());
-        }
-        return($enlace);
-        // mysqli_close($enlace); //cierra la conexion a nuestra base de datos, un ounto de seguridad importante.
-      }
-      function monthlySales(){
-
-      }
+function save ($mkg)
+{
+global $db;
+$sql_query = "SELECT * FROM products LIMIT 10";
+$resultset = mysqli_query($db, $sql_query) or die("database error:". mysqli_error($db));
+$developer_records = array();
+while( $rows = mysqli_fetch_assoc($resultset) ) {
+$developer_records[] = $rows;
+}
+    
     }
+    
+    class Conexion{
+			var $ruta;
+			var $usuario;
+			var $contrasena;
+			var $baseDatos;
 
+			function Conexion(){
+				$this->ruta       ="localhost"; //
+				$this->usuario    ="root"; //usuario que tengas definido
+				$this->contrasena =""; //contraseña que tengas definidad
+				$this->baseDatos  ="oswa_inv"; //base de datos personas, si quieres utilizar otra base de datos solamente cambiala
+			}
+
+			function conectarse(){
+				//---------------------------TIPO DE CONEXION 1-----------------------------------
+				/*$conectarse= mysql_connect($this->ruta,$this->usuario, $this->contrasena) or die(mysql_error()); //conexion al BD
+				if($conectarse){
+					mysql_select_db($this->baseDatos);
+					return($conectarse);
+				}else{
+					return ("Error");
+					}*/
+				//------------------------TIPO DE CONEXION 2 - RECOMENDADA---------------------------------------------
+				$enlace = mysqli_connect($this->ruta, $this->usuario, $this->contrasena, $this->baseDatos);
+				if($enlace){
+					//echo "Conexion exitosa";	//si la conexion fue exitosa nos muestra este mensaje como prueba, despues lo puedes poner comentarios de nuevo: //
+				}else{
+					die('Error de Conexión (' . mysqli_connect_errno() . ') '.mysqli_connect_error());
+				}
+				return($enlace);
+				// mysqli_close($enlace); //cierra la conexion a nuestra base de datos, un ounto de seguridad importante.
+			}
+		}
 ?>

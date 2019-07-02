@@ -2,7 +2,7 @@
   <li>
     <a href="home.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>Panel de Control</span>
+      <span>Panel de control</span>
     </a>
   </li>
   <!--<li>
@@ -15,15 +15,15 @@
          <li><a href="add_sale.php">Agregar venta</a> </li>
      </ul>
   </li>-->
-  <li>
+   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-signal"></i>
-       <span>Reporte de Productos</span>
+       <span>Reportes de Bienes</span>
       </a>
       <ul class="nav submenu">
-        <li><a href="sales_report.php">Reporte por Fecha </a></li>
-        <li><a href="monthly_sales.php">Reporte por Departamento</a></li>
-        <li><a href="daily_sales.php">Reporte por Serial</a> </li>
+        <li><a href="pdf.php">Inventario por departamento</a></li>
+        <li><a href="centerpdf.php">Inventario Por Centro Comando</a></li>
+        
       </ul>
   </li>
 </ul>

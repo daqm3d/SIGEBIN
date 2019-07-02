@@ -4,20 +4,23 @@
   // Checkin What level user has permission to view this page
   page_require_level(2);
   $all_categories = find_all('categories');
+  $all_centers = find_all('center');
   //$all_photo = find_all('media');
 ?>
 <?php
  if(isset($_POST['add_product'])){
-   $req_fields = array('descripcion','departamento','product-quantity','brand', 'seriell','modelle','waren' );
+   $req_fields = array('descripcion','departamento','product-quantity','brand', 'seriell','modelle','waren','centro','status'  );
    validate_fields($req_fields);
    if(empty($errors)){
      $p_name  = remove_junk($db->escape($_POST['descripcion']));
      $p_cat   = remove_junk($db->escape($_POST['departamento']));
+     $p_cet   = remove_junk($db->escape($_POST['centro']));
      $p_qty   = remove_junk($db->escape($_POST['product-quantity']));
      $p_buy   = remove_junk($db->escape($_POST['brand']));
      $p_sale  = remove_junk($db->escape($_POST['seriell']));
      $p_modelle = remove_junk($db->escape($_POST['modelle']));
      $p_waren = remove_junk($db->escape($_POST['waren']));
+     $p_sta   = remove_junk($db->escape($_POST['status']));
      /*if (is_null($_POST['product-photo']) || $_POST['product-photo'] === "") {
        $media_id = '0';
      } else {
@@ -25,9 +28,9 @@
      }*/
      $date    = make_date();
      $query  = "INSERT INTO products (";
-     $query .=" name,quantity,marca,serial,model,bien,categorie_id,date";
+     $query .=" name,quantity,marca,serial,model,bien,categorie_id,date,centro,status";
      $query .=") VALUES (";
-     $query .=" '{$p_name}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_modelle}', '{$p_waren}','{$p_cat}', '{$date}'";
+     $query .=" '{$p_name}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_modelle}', '{$p_waren}','{$p_cat}', '{$date}','{$p_cet}','{$p_sta}'";
      $query .=")";
      $query .=" ON DUPLICATE KEY UPDATE name='{$p_name}'";
      if($db->query($query)){
@@ -84,10 +87,18 @@
                     <?php endforeach; ?>
                     </select>
                   </div>
+                    <div class="col-md-6">
+                    <select class="form-control" name="centro">
+                      <option value="">Selecciona un Centro de Comando</option>
+                    <?php  foreach ($all_centers as $cat): ?>
+                      <option value="<?php echo (int)$cat['id'] ?>">
+                        <?php echo $cat['commands'] ?></option>
+                    <?php endforeach; ?>
+                    </select>
+                  </div>
                 </div>
               </div>
-
-            <div class="form-group">
+              <div class="form-group">
                <div class="row">
                  <div class="col-md-4">
                    <div class="input-group">
@@ -133,7 +144,13 @@
                         <input type="text" class="form-control" name="waren" placeholder="Nro. Bien">
                     </div>
               </div>   
-              
+              <div class="col-md-4">
+                    <select class="form-control" name="status">
+                      <option value="#">Status</option>
+                      <option value="A">Activo</option>
+                      <option value="I">Inactivo</option>
+                    </select>
+                  </div>
               <button type="submit" name="add_product" class="btn btn-danger">Agregar producto</button>
           </form>
          </div>

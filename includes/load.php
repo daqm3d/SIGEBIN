@@ -21,10 +21,5 @@ require_once(LIB_PATH_INC.'upload.php');
 require_once(LIB_PATH_INC.'database.php');
 require_once(LIB_PATH_INC.'sql.php');
 
+
 ?>
-<!doctype html>
-<html lang="en-US">
- <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <link rel="icon"  href="../libs/images/favicon-sudebin.ico" />
-   </head>

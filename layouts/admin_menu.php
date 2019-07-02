@@ -2,7 +2,7 @@
   <li>
     <a href="admin.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>Panel de Control</span>
+      <span>Panel de control</span>
     </a>
   </li>
   <li>
@@ -22,13 +22,19 @@
     </a>
   </li>
   <li>
+    <a href="centers.php" >
+      <i class="glyphicon glyphicon-indent-right"></i>
+      <span>Centros de Comandos</span>
+    </a>
+  </li>
+  <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-th-large"></i>
-      <span>Productos</span>
+      <span>Bienes</span>
     </a>
     <ul class="nav submenu">
-       <li><a href="product.php">Administrar Productos</a> </li>
-       <li><a href="add_product.php">Agregar Productos</a> </li>
+       <li><a href="product.php">Administrar Bienes</a> </li>
+       <li><a href="add_product.php">Agregar Bienes</a> </li>
    </ul>
   </li>
   <!--<li>
@@ -50,12 +56,13 @@
   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-signal"></i>
-       <span>Reportes de Productos</span>
+       <span>Reportes de Bienes</span>
       </a>
       <ul class="nav submenu">
-        <li><a href="sales_report.php">Reportes por Fecha </a></li>
-        <li><a href="monthly_sales.php">Reportes por Departamento</a></li>
-        <li><a href="daily_sales.php">Reportes por Serial</a> </li>
+        <li><a href="pdf.php">Inventario por departamento</a></li>
+        <li><a href="centerpdf.php">Inventario Por Centro Comando</a></li>
+        <li><a href="bien.php">Inventario por Nro. Bien</a> </li>
+        
       </ul>
   </li>
 </ul>

@@ -1,18 +1,32 @@
 <?php
 	
 //error_reporting(E_ALL ^ E_NOTICE );
-	include("conexion.php");
+	require_once('includes/load.php');
+	$conn=new Conexion();
+	$link = $conn->conectarse();
         
         /***********************/
-	$rst_empleado=mysql_query("SELECT * FROM categories WHERE name!='NINGUNO';",$conexion);
-	if (mysql_num_rows($rst_empleado)==0)
-	{
-		mysql_close($conexion);
-		echo mostrar_mensaje("No hay ninguno","");
-		exit();
-	}
+	$query="SELECT * FROM categories WHERE name!='NINGUNO'";
+	$result=mysqli_query($link, $query);
+	/*****************************/
 	$num='1';
 ?>
+<?php include_once('layouts/header.php'); ?>
+<div class="row">
+     <div class="col-md-12">
+       <?php echo display_msg($msg); ?>
+     </div>
+  </div>
+   <div class="row">
+   
+    <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>
+          <span class="glyphicon glyphicon-th"></span>
+          <span>Lista de Inventario por Departamento</span>
+       </strong>
+      </div>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -45,7 +59,7 @@ blanco {
 <body>
     <form id="form1" name="form1" method="post" action="pdferror.php?num=<?php echo $num;?>" target="inferior"  >
   <div align="center">
-    <table width="874" border="1">
+    <table width="500">
       <tr>
         
         <td><div align="center" class="grisoscuro"><strong>Inventario por Departamento</strong></div></td>
@@ -53,7 +67,7 @@ blanco {
           <select name="s_emp" id="select">
             <option selected="selected"  value="">[Seleccione departamento]</option>
             <?php
-				while ($fila=mysql_fetch_array($rst_empleado))
+				while ($fila=mysqli_fetch_array($result))
 				{
 					echo "<option value='". $fila["name"]."'>".$fila["name"] ."</option>";
 				
@@ -62,7 +76,7 @@ blanco {
             </select>
         </label></td>
         <td><div align="left">
-          <input type="submit" name="button" id="button" value="Consultar" title="Buscar Inventario"/>
+          <input type="submit" name="button" id="button" class="btn btn-primary" value="Consultar" title="Buscar Inventario"/>
         </div></td>
         
       </tr>
@@ -71,3 +85,4 @@ blanco {
 </form>
 </body>
 </html>
+<?php include_once('layouts/footer.php'); ?>

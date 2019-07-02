@@ -1,4 +1,9 @@
-<?php 
-$conexion=mysql_connect("localhost","root","");
-mysql_select_db("oswa_inv",$conexion);
+<?php
+	$mysqli=new mysqli("localhost","root","","oswa_inv"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+	
+	if(mysqli_connect_errno()){
+		echo 'Conexion Fallida : ', mysqli_connect_error();
+		exit();
+	}
+	$acentos = $mysqli->query("SET NAMES 'utf8'")
 ?>

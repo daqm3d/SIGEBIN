@@ -5,7 +5,7 @@ class Session {
 
  public $msg;
  private $user_is_logged_in = false;
- 
+
  function __construct(){
    $this->flash_msg();
    $this->userLoginSetup();

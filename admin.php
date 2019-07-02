@@ -9,6 +9,7 @@
  $c_product       = count_by_id('products');
  $c_sale          = count_by_id('sales');
  $c_user          = count_by_id('users');
+ $c_center        = count_by_id('center');
  $products_sold   = find_higest_saleing_product('10');
  $recent_products = find_recent_product_added('5');
  $recent_sales    = find_recent_sale_added('5')
@@ -39,7 +40,7 @@
         </div>
         <div class="panel-value pull-right">
           <h2 class="margin-top"> <?php  echo $c_categorie['total']; ?> </h2>
-          <p class="text-muted">Categorías</p>
+          <p class="text-muted">Departamentos</p>
         </div>
        </div>
     </div>
@@ -50,21 +51,21 @@
         </div>
         <div class="panel-value pull-right">
           <h2 class="margin-top"> <?php  echo $c_product['total']; ?> </h2>
-          <p class="text-muted">Productos</p>
+          <p class="text-muted">Bienes</p>
         </div>
        </div>
     </div>
-    <!--<div class="col-md-3">
+    <div class="col-md-3">
        <div class="panel panel-box clearfix">
          <div class="panel-icon pull-left bg-yellow">
-          <i class="glyphicon glyphicon-usd"></i>
+          <i class="glyphicon glyphicon-home"></i>
         </div>
         <div class="panel-value pull-right">
-          <h2 class="margin-top"> <?php  echo $c_sale['total']; ?></h2>
-          <p class="text-muted">Ventas</p>
+          <h2 class="margin-top"> <?php  echo $c_center['total']; ?></h2>
+          <p class="text-muted">Centros de Comando</p>
         </div>
        </div>
-    </div>-->
+    </div>
 </div>
 
   <div class="row">
@@ -140,7 +141,7 @@
       <div class="panel-heading">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>Productos añadidos</span>
+          <span>Bienes añadidos</span>
         </strong>
       </div>
       <div class="panel-body">

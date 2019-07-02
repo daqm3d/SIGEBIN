@@ -242,7 +242,6 @@ table tfoot tr td:first-child{
   -moz-transition: all .15s ease-out;
   -webkit-transition: all .15s ease-out;
   transition: all .15s ease-out;
-  font color: #000000
 }.form-control:focus{
   background: #f8f8f8;
   border-color: #3498DB;
@@ -259,8 +258,7 @@ table tfoot tr td:first-child{
 }.btn-primary {
     color: #fff;
     background-color: #51aded;
-    border-color: #3d8fd8;
-    margin: 10px;
+    border-color: #3d8fd8
 }.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active{
     color: #fff;
     background-color: #3175b8;
@@ -306,15 +304,3 @@ input[type=file]{
   width: 125px;
   height: 125px;
 }
-
-.icon{
-  visibility: 
-  width: 125px;
-  height: 125px;
-}
-
-#exportar{
-  margin-top: 5%;
-  position: absolute;
-  left: 44%;
-}/* exportar reporte */

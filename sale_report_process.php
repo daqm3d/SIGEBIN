@@ -30,7 +30,6 @@ $results = '';
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    <title>Reporte de ventas</title>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
-     <link rel="stylesheet" href="libs/css/main.css" />
    <style>
    @media print {
      html,body{
@@ -80,46 +79,53 @@ $results = '';
   <?php if($results): ?>
     <div class="page-break">
        <div class="sale-head pull-right">
-           <h1>Reporte de Bienes Nacionales</h1>
-           <strong>Por fecha: <?php if(isset($start_date)){ echo $start_date;}?> a <?php if(isset($end_date)){echo $end_date;}?> </strong>
+           <h1>Reporte de ventas</h1>
+           <strong><?php if(isset($start_date)){ echo $start_date;}?> a <?php if(isset($end_date)){echo $end_date;}?> </strong>
        </div>
       <table class="table table-border">
         <thead>
           <tr>
-              <th>Fecha de Ingreso</th>
+              <th>Fecha</th>
               <th>Descripción</th>
-              <th>Marca</th> 
+              <th>Marca</th>
+              <th>Serial</th>
               <th>Modelo</th>
-              <th>Nro. Serial</th>
-              <th>Nro. Bienes Nacionales</th>
-              <th>Departamento</th>
-              <th>Stock</th>
+              <th>TOTAL</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach($results as $result): ?>
            <tr>
               <td class=""><?php echo remove_junk($result['date']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['name1']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['model']);?></td>
+              <td class="desc">
+                <h6><?php echo remove_junk(ucfirst($result['name']));?></h6>
+              </td>
+              <td class="text-right"><?php echo remove_junk($result['quantity']);?></td>
               <td class="text-right"><?php echo remove_junk($result['marca']);?></td>
               <td class="text-right"><?php echo remove_junk($result['serial']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['bien']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['name']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['quantity']);?></td>
+              <td class="text-right"><?php echo remove_junk($result['model']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+         <tr class="text-right">
+           <td colspan="4"></td>
+           <td colspan="1"> Total </td>
+           <td> $
+           <?php echo number_format(@total_price($results)[0], 2);?>
+          </td>
+         </tr>
+         <tr class="text-right">
+           <td colspan="4"></td>
+           <td colspan="1">Utilidad</td>
+           <td> $<?php echo number_format(@total_price($results)[1], 2);?></td>
+         </tr>
+        </tfoot>
       </table>
-    </div>
-    <div class="form-group" id="exportar">
-      <a href="sales_report.php"><button type="submit" name="submit" class="btn btn-primary">Cancelar</button></a>
-      <button type="submit"  name="submit" class="btn btn-primary">Exportar a PDF </button>
-      <button type="submit"  name="submit" class="btn btn-primary">Exportar a EXCEL </button>
     </div>
   <?php
     else:
-        $session->msg("d", "No se encontraron productos en la fechas: $start_date al $end_date");
+        $session->msg("d", "No se encontraron ventas. ");
         redirect('sales_report.php', false);
      endif;
   ?>

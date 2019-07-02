@@ -1,39 +1,60 @@
-<?php 
-header('Content-type:application/xls');
-  header('Content-Disposition: attachment; filename=inventario.xls');
- ?>
-<!doctype html>
+<?php
+///// INCLUIR LA CONEXIÓN A LA BD /////////////////
+require_once('includes/load.php');
+	$conn=new Conexion();
+	$link = $conn->conectarse();
+            /******************************/
+	$query="SELECT t1.name as name1,t1.quantity,t1.marca,t1.serial,t1.model,t1.bien,t1.date, t2.name FROM products t1 INNER JOIN categories t2 ON t1.id=t2.id WHERE t2.id  ORDER by t1.id desc";
+	$result=mysqli_query($link, $query);
+?>
+
 <html lang="es">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+                <link href="libs/css/estilos.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	</head>
+	<body>
+		<header>
+			<div class="alert alert-info">
+                            <h2><img src="libs/images/logo-sudebin.png" width="400" height="250"></h2>
+			</div>
+		</header>
+		<section>
+			<table class="table" width="500">
+				<tr class="bg-primary">
+					<th>Descripcion del Bien</th>
+					<th>Cantidad</th>
+					<th>Marca</th>
+					<th>Serial</th>
+                                        <th>Modelo</th>
+					<th>Nro. Bien</th>
+                                        <th>Departamento</th>
+                                        <th>Fecha de Ingreso del Bien</th>
+				</tr>
+				<?php
+				while ($registroInventario = $result->fetch_array(MYSQLI_BOTH))
+				{
+					echo'<tr>
+						 <td>'.$registroInventario['name1'].'</td>
+						 <td>'.$registroInventario['quantity'].'</td>
+						 <td>'.$registroInventario['marca'].'</td>
+						 <td>'.$registroInventario['serial'].'</td>
+						 <td>'.$registroInventario['model'].'</td>
+                                                 <td>'.$registroInventario['bien'].'</td>
+                                                 <td>'.$registroInventario['name'].'</td>
+                                                 <td>'.$registroInventario['date'].'</td>    
+						 </tr>';
+				}
+				?>
+			</table>
+		</section>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    
-  </head>
-  <body>
-  	<div class="container">
-      
-      <div class="row">
-        <div class="col text-center">
-            <a href="monthly_sales_process.php">
-            Generar XLS
-          </a>
-        </div>
-      </div>
-  	</div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-  </body>
+            <form method="post" class="form" action="exportar_data.php" align="center">
+		<input type="date" name="fecha1">
+		<input type="date" name="fecha2">
+		<input type="submit" name="generar_reporte" class="btn btn-primary">
+		</form>
+	</body>
 </html>
